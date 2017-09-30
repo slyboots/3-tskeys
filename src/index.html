@@ -10,8 +10,16 @@
 
 <body>
     <h1>3-tskeys</h1>
-    <div id="content">
+    <div id="content" class="w-80">
     </div>
 </body>
-
+<script type="text/javascript">
+    var kb = new tskeys.TSKeys({
+        id: "test",
+        octaves: 3,
+        rootNote: "C#3",
+        container: "content"
+    })
+    kb.render();
+</script>
 </html>

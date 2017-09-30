@@ -1,0 +1,15 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+build	../reference/xgui.js/utils/builder.py	/^build = '..\/build\/xgui.min.js'$/;"	kind:variable	line:5
+builder.py	../reference/xgui.js/utils/builder.py	1;"	kind:file	line:1
+contents	../reference/xgui.js/utils/builder.py	/^contents = file.read();$/;"	kind:variable	line:11
+file	../reference/xgui.js/utils/builder.py	/^file = open( build, 'r' )$/;"	kind:variable	line:10
+file	../reference/xgui.js/utils/builder.py	/^file = open( build, 'w' )$/;"	kind:variable	line:14
+header	../reference/xgui.js/utils/builder.py	/^header = '\/\/ xgui.js r' + str( rev ) + ' - https:\/\/github.com\/oosmoxiecode\/xgui.js\\n'$/;"	kind:variable	line:6
+os	../reference/xgui.js/utils/builder.py	/^import os$/;"	kind:namespace	line:1
+rev	../reference/xgui.js/utils/builder.py	/^rev = 2$/;"	kind:variable	line:3
+source	../reference/xgui.js/utils/builder.py	/^source = '..\/src\/xgui.js'$/;"	kind:variable	line:4
