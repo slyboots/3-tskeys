@@ -1,12 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import './index.scss'
+import { Container } from './components/container';
+import { Keyboard } from './components/keyboard'
+import './index.scss';
+
 function App() {
     return (
-        <div className="w-60 h-50 center outline">
-            <h1 className="f1 tracked">Success</h1>
-        </div>
+        <Container direction="row" justify="start" width="60%" title="3-tskeys" outline={true}>
+            <Keyboard height="200px" rootNote="A#3" octaves="2" />
+        </Container>
     )
 }
 
