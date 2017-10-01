@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 
 <head>
     <meta charset="UTF-8">
@@ -8,18 +8,15 @@
 
 </head>
 
-<body>
-    <h1>3-tskeys</h1>
-    <div id="content" class="w-80">
-    </div>
+<body class="h-100">
+    <h1 class="f1 tracked">3-tskeys</h1>
+    <div id="root" class="h-100"></div>
+
+    <!-- Dependencies -->
+    <script src="./assets/react.development.js"></script>
+    <script src="./assets/react-dom.development.js"></script>
+
+    <!-- Main -->
+    
 </body>
-<script type="text/javascript">
-    var kb = new tskeys.TSKeys({
-        id: "test",
-        octaves: 3,
-        rootNote: "C#3",
-        container: "content"
-    })
-    kb.render();
-</script>
 </html>

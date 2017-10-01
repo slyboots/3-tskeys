@@ -1,79 +1,89 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
-import * as HtmlWebpackPlugin  from "html-webpack-plugin";
-import * as ExtractTextPlugin  from "extract-text-webpack-plugin";
+import * as HtmlWebpackPlugin from "html-webpack-plugin";
+import * as CopyWebpackPlugin from "copy-webpack-plugin";
 
 const CleanWebpackPlugin: any = require("clean-webpack-plugin");
 
-const extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
-});
-declare var __dirname: any;
-
+declare var __dirname: string;
+const react = {
+    "core": path.resolve("node_modules/react/umd/react.development.js"),
+    "dom": path.resolve("node_modules/react-dom/umd/react-dom.development.js")
+}
 const config: webpack.Configuration = {
-    entry: {
-        index: path.resolve(__dirname, "src", "index.ts")
+    entry: "./src/index.tsx",
+    output: {
+        filename: "bundle.js",
+        path: path.resolve(__dirname, "dist")
+    },
+    devtool: "inline-source-map",
+    resolve: {
+        extensions: [".ts", ".tsx", ".js", ".json"]
     },
     module: {
         rules: [
             {
-                test: /\.scss$/,
-                use: extractSass.extract({
-                    use: [
-                        {
-                            loader: "css-loader",
-                            options: {
-                                sourceMap: true,
-                                importLoaders: 1
-                            }
-                        },
-                        {
-                            loader: "sass-loader",
-                            options: {
-                                sourceMap: true,
-                                includePaths: [
-                                    path.resolve("./node_modules/tachyons-sass")
-                                ]
-                            }
-                        }
-                    ],
-                    fallback: "style-loader"
-                }),
-                exclude: /node_modules/
+                enforce: "pre",
+                test: /\.js$/,
+                loader: "source-map-loader"
             },
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                loader: "ts-loader",
+                exclude: /node_modules/
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    { loader: 'style-loader' },
+                    { loader: 'css-loader' }
+                ]
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            sourceMap: true,
+                            importLoaders: 1
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ],
                 exclude: /node_modules/
             }
         ]
     },
-    plugins: [
-        extractSass,
-        new CleanWebpackPlugin( ['dist'], { verbose: true }),
-        new HtmlWebpackPlugin({
-            title: "3-tskeys",
-            template: "./src/index.html",
-            favicon: "",
-            cache: true,
-            mobile: true
-        })
-    ],
-    devtool: "inline-source-map",
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    },
     devServer: {
         contentBase: "./dist"
     },
-    resolve: {
-        extensions: [".tsx", ".ts", ".js"]
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'index.js',
-        library: "tskeys",
-        libraryTarget: "umd",
-        umdNamedDefine: true
-    }
-};
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new HtmlWebpackPlugin({
+            title: 'React App',
+            template: "./src/index.html",
+            favicon: "./src/favicon.png",
+            cache: true,
+            mobile: true
+        }),
+        new CopyWebpackPlugin([
+            { from: react.core, to: "./assets/react.development.js" },
+            { from: react.dom, to: "./assets/react-dom.development.js" }
+        ])
+    ]
+}
 
 export default config;
