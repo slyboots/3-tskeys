@@ -31,11 +31,16 @@ export class Keyboard extends React.Component<KeyboardProps, undefined> {
             componentProps: this.props,
             notes: this.notes
         }
+        let pianoKeys = this.keys.map( (pk) =>
+            <Key key={pk.key} note={pk.note}/>
+        )
         return (
-            <div className="outline" style={styles}>
-                <pre className="w-100">{JSON.stringify(internalState, undefined, 2)}</pre>
-                <div className="outline mt2">
-                    {this.keys}
+            <div className="outline flex flex-column flex-wrap" style={styles}>
+                <div className="flex-0-1 self-start w-100 flex flex-row justify-center">
+                    <span className="ph2 flex-auto f6 tr br">Root Note:&nbsp;{this.props.rootNote}</span><span className="ph2 flex-auto f6 tl">Octaves:&nbsp;{this.props.octaves}</span>
+                </div>
+                <div className="flex flex-row flex-auto outline mt2">
+                    {pianoKeys}
                 </div>
             </div>
         );
@@ -77,7 +82,7 @@ export class Keyboard extends React.Component<KeyboardProps, undefined> {
                 baseOctave += ((currentNote === "C" && (nIndex !== 0)) ? 1 : 0);
                 currentNote += (baseOctave + oIndex).toString()
 
-                let newKey = <Key note={currentNote} key={currentNote}/>
+                let newKey = { "note": currentNote, "key": currentNote }
                 // if(newKey.type == 'Enharmonic') {
                 //     newKey.setOverlap(octaves);
                 // }

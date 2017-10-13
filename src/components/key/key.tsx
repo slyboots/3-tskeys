@@ -13,9 +13,16 @@ export class Key extends React.Component<KeyProps, undefined> {
         super(props);
     }
     public render() {
+        let styleClasses: string[] = [
+            "flex", "flex-auto", "flex-row",
+            "items-end", "hide-child", "br",
+            `${this.fgcolor}`, `bg-${this.color}`,
+            "bg-animate",
+            `${this.color === 'white'? 'hover-bg-moon-gray': 'hover-bg-dark-gray'}`
+        ]
         return (
-            <div>
-                {this.props.note}
+            <div className={styleClasses.toString().replace(/,/g,' ')}>
+                <span className="child">{this.props.note}</span>
             </div>
         );
     }
@@ -30,6 +37,10 @@ export class Key extends React.Component<KeyProps, undefined> {
     /** returns the color of the key */
     public get color(): string {
         return this.props.note[1] === "#" ? "black" : "white";
+    }
+    /** returns the color of the key */
+    public get fgcolor(): string {
+        return this.props.note[1] === "#" ? "white" : "black";
     }
     /** returns the type of note "Natural" or "Enharmonic" */
     public get type(): string { return this.props.note[1] === "#"?"Enharmonic":"Natural";}
